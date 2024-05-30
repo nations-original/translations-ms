@@ -1,0 +1,39 @@
+framework:
+  messenger:
+    failure_transport: failed
+
+    transports:
+      requests:
+        dsn: '%env(MESSENGER_ASYNC_DSN)%'
+        options:
+          exchange:
+            name: 'translations_requests'
+            type: 'direct'
+          queues:
+            default:
+              binding_keys: [ 'default' ]
+
+      responses:
+        dsn: '%env(MESSENGER_ASYNC_DSN)%'
+        options:
+          exchange:
+            name: 'translations_responses'
+            type: 'direct'
+          queues:
+            default:
+              binding_keys: [ 'default' ]
+
+      failed:
+        dsn: 'doctrine://default?queue_name=failed'
+
+    routing:
+      # Messages only to receive
+#      'App\Message\TranslationsGetAll': requests
+#      'App\Message\TranslationTranslateTo': requests
+#      'App\Message\TranslationAddApplication': requests
+#      'App\Message\TranslationAddLocale': requests
+#      'App\Message\TranslationAddTranslation': requests
+
+      # Messages only to send
+#      'App\Message\TranslationsGetAllResponse': responses
+#      'App\Message\TranslationTranslateToResponse': responses
