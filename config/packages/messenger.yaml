@@ -27,6 +27,11 @@ framework:
         dsn: 'doctrine://default?queue_name=failed'
 
     routing:
+      App\Message\TranslationsGetAll: requests
+      App\Message\TranslationsGetAllResponse: responses
+      App\Message\TranslationsLocalesAdd: requests
+      App\Message\TranslationsLocalesSetActive: requests
+      App\Message\TranslationsLocalesSetInactive: requests
       # Messages only to receive
 #      'App\Message\TranslationsGetAll': requests
 #      'App\Message\TranslationTranslateTo': requests
