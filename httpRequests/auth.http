@@ -1,0 +1,11 @@
+### Authentification, return uuid of the authenticated application
+POST https://127.0.0.1:8000/api/auth
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "nations_original",
+    "password": "pro3CvF5"
+}
+
+###
