@@ -7,7 +7,7 @@ use App\Message\TranslationsGetAll;
 use App\Message\TranslationsGetAllResponse;
 use App\Services\TranslationsService;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
+use RuntimeException;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -29,9 +29,12 @@ final class TranslationsGetAllHandler
             ->find($message->appUuid);
 
         if (!$app) {
-            throw new Exception('Application not found'); // todo:: log error
+            throw new RuntimeException('Application not found'); // todo:: log error
         }
 
+        /**
+         * @throws RuntimeException todo:: log error
+         */
         $translations = $this->translationsService->translationsAll($app);
 
         // send the TranslationsGetAllResponse message

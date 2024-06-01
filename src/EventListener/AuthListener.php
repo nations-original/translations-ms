@@ -43,6 +43,8 @@ final class AuthListener
         // if the Authorization header is not set, then return 401 Unauthorized
         if (!$request->headers->has('Authorization')) {
             $event->setResponse(new JsonResponse(['error' => 'Unauthorized'], JsonResponse::HTTP_UNAUTHORIZED));
+
+            return;
         }
 
         // check if application with uuid from Authorization header exists
@@ -53,11 +55,15 @@ final class AuthListener
         // if application not found, then return 403 Forbidden
         if (!$application) {
             $event->setResponse(new JsonResponse(['error' => 'Forbidden'], JsonResponse::HTTP_FORBIDDEN));
+
+            return;
         }
 
         // if application is not active, then return 403 Forbidden
         if (!$application->isActive()) {
             $event->setResponse(new JsonResponse(['error' => 'Forbidden'], JsonResponse::HTTP_FORBIDDEN));
+
+            return;
         }
 
         // set the application to the request attributes
@@ -97,6 +103,8 @@ final class AuthListener
                         new JsonResponse(['error' => 'Not Acceptable. Locale not found.'],
                             JsonResponse::HTTP_NOT_ACCEPTABLE)
                     );
+
+                    return;
                 }#else
 
                 // set the locale to the request attributes
