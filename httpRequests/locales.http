@@ -2,7 +2,7 @@
 POST https://127.0.0.1:8000/api/translations/locales/add
 Accept: application/json
 Content-Type: application/json
-Authorization: 2b7a3ff2-b754-4a39-a8d9-564372677ffd
+Authorization: {{app_uuid}}
 
 {
   "locale": "uk"
@@ -11,11 +11,11 @@ Authorization: 2b7a3ff2-b754-4a39-a8d9-564372677ffd
 ### Set locale as active for a given application
 GET https://127.0.0.1:8000/api/translations/locales/set-active
 Accept: application/json
-Authorization: 2b7a3ff2-b754-4a39-a8d9-564372677ffd
-Accept-Language: uk
+Authorization: {{app_uuid}}
+Accept-Language: {{accept_language}}
 
 ### Set locale as inactive for a given application
 GET https://127.0.0.1:8000/api/translations/locales/set-inactive
 Accept: application/json
-Authorization: 2b7a3ff2-b754-4a39-a8d9-564372677ffd
-Accept-Language: uk
+Authorization: {{app_uuid}}
+Accept-Language: {{accept_language}}

@@ -2,6 +2,6 @@
 GET https://127.0.0.1:8000/api/translations/all
 Accept: application/json
 Content-Type: application/json
-Authorization: 2b7a3ff2-b754-4a39-a8d9-564372677ffd
+Authorization: {{app_uuid}}
 
 ###
