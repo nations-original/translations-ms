@@ -118,16 +118,4 @@ class Application
         return $this;
     }
 
-    public function removeLocale(Locale $locale): static
-    {
-        if ($this->locales->removeElement($locale)) {
-            // set the owning side to null (unless already changed)
-            if ($locale->getApplication() === $this) {
-                $locale->setApplication(null);
-            }
-        }
-
-        return $this;
-    }
-
 }

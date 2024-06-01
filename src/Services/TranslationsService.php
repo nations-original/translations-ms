@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entity\Application;
+use RuntimeException;
 
 /**
  * Trait TranslationsTrait
@@ -19,17 +20,15 @@ final class TranslationsService
             if (!$locale->isActive()) {
                 continue;
             }
+            $translations[$locale->getName()] = [];
 
             foreach ($locale->getTranslations() as $translation) {
-                $translations[$locale->getName()][$translation->getString()] = [
-                    'translation' => $translation->getTranslation(),
-                    'translation_male' => $translation->getTranslationMale(),
-                    'translation_female' => $translation->getTranslationFemale(),
-                    'translation_one' => $translation->getTranslationOne(),
-                    'translation_few' => $translation->getTranslationFew(),
-                    'translation_many' => $translation->getTranslationMany(),
-                ];
+                $translations[$locale->getName()][$translation->getString()] = $translation->getTranslation();
             }
+        }
+
+        if (!isset($translations)) {
+            throw new RuntimeException('No active locales found for the application');
         }
 
         return $translations;

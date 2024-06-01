@@ -8,6 +8,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TranslationRepository::class)]
+#[ORM\Table(name: 'translations')]
+#[ORM\UniqueConstraint(name: 'string_locale_uk', columns: ['string', 'locale_id'])]
 class Translation
 {
     #[ORM\Id]
@@ -16,25 +18,10 @@ class Translation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $string = null;
+    private string $string;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $translation = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $translationMale = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $translationFemale = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $translationOne = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $translationFew = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $translationMany = null;
 
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private DateTimeImmutable $createdAt;
@@ -59,7 +46,7 @@ class Translation
         return $this->id;
     }
 
-    public function getString(): ?string
+    public function getString(): string
     {
         return $this->string;
     }
@@ -76,69 +63,9 @@ class Translation
         return $this->translation;
     }
 
-    public function setTranslation(?string $translation): static
+    public function setTranslation(string $translation): self
     {
         $this->translation = $translation;
-
-        return $this;
-    }
-
-    public function getTranslationMale(): ?string
-    {
-        return $this->translationMale;
-    }
-
-    public function setTranslationMale(?string $translationMale): static
-    {
-        $this->translationMale = $translationMale;
-
-        return $this;
-    }
-
-    public function getTranslationFemale(): ?string
-    {
-        return $this->translationFemale;
-    }
-
-    public function setTranslationFemale(?string $translationFemale): static
-    {
-        $this->translationFemale = $translationFemale;
-
-        return $this;
-    }
-
-    public function getTranslationOne(): ?string
-    {
-        return $this->translationOne;
-    }
-
-    public function setTranslationOne(?string $translationOne): static
-    {
-        $this->translationOne = $translationOne;
-
-        return $this;
-    }
-
-    public function getTranslationFew(): ?string
-    {
-        return $this->translationFew;
-    }
-
-    public function setTranslationFew(?string $translationFew): static
-    {
-        $this->translationFew = $translationFew;
-
-        return $this;
-    }
-
-    public function getTranslationMany(): ?string
-    {
-        return $this->translationMany;
-    }
-
-    public function setTranslationMany(?string $translationMany): static
-    {
-        $this->translationMany = $translationMany;
 
         return $this;
     }
@@ -160,7 +87,7 @@ class Translation
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 

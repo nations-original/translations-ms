@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LocaleRepository::class)]
 #[ORM\Table(name: 'locales')]
-#[ORM\UniqueConstraint(name: 'name_application', columns: ['name', 'application_id'])]
+#[ORM\UniqueConstraint(name: 'name_application_uk', columns: ['name', 'application_id'])]
 #[ORM\HasLifecycleCallbacks]
 class Locale
 {
@@ -149,6 +149,10 @@ class Locale
         $anotherLocale = $locales->first();
         while ($anotherLocale === $this) {
             $anotherLocale = $locales->next();
+        }
+
+        if ($anotherLocale === false) {
+            return; // happens when the first locale added
         }
 
         foreach ($anotherLocale->getTranslations() as $translation) {
